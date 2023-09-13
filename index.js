@@ -1,12 +1,13 @@
 const { execSync } = require("child_process");
 const { resolve } = require("path");
 
-const repoPath = "../api";
+const REPO_PATH = "../api";
+const DAYS_AGO = 90;
 
-function listRemoteBranches(repoPath) {
+function listRemoteBranches() {
   try {
     const branches = execSync(
-      `git --git-dir=${resolve(repoPath, ".git")} ls-remote --heads origin`
+      `git --git-dir=${resolve(REPO_PATH, ".git")} ls-remote --heads origin`
     )
       .toString()
       .split("\n")
@@ -28,7 +29,7 @@ function checkStaleRemoteBranches(branches) {
     const lastCommitDate = new Date(
       execSync(
         `git --git-dir=${resolve(
-          repoPath,
+          REPO_PATH,
           ".git"
         )} show --format="%cI" --no-patch ${branch.commitHash}`
       )
@@ -36,7 +37,7 @@ function checkStaleRemoteBranches(branches) {
         .trim()
     );
 
-    if (getDays(lastCommitDate) > 90) {
+    if (getDays(lastCommitDate) > DAYS_AGO) {
       const branchName = branch.branchRef.split("/").pop();
       console.log(
         `The remote branch "${branchName}" has been inactive for ${getDays(
@@ -45,7 +46,7 @@ function checkStaleRemoteBranches(branches) {
       );
 
     //   Check if there's an open PR for the branch
-      const hasOpenPR = hasOpenPullRequest(repoPath, branchName);
+      const hasOpenPR = hasOpenPullRequest(REPO_PATH, branchName);
 
       if (hasOpenPR) {
         console.log(`There is an open PR for the remote branch "${branchName}".`);
@@ -73,12 +74,12 @@ function getDays(startDate) {
   return differenceInDays;
 }
 
-function hasOpenPullRequest(repoPath, branchName) {
+function hasOpenPullRequest(branchName) {
   try {
     const prRef = `refs/pull/${branchName}/head`;
     const result = execSync(
       `git --git-dir=${resolve(
-        repoPath,
+        REPO_PATH,
         ".git"
       )} ls-remote --exit-code origin ${prRef} && echo "exists" || echo "not found"`
     )
