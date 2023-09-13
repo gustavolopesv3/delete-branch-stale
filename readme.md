@@ -22,7 +22,7 @@ Before you can use this script, you need to have the following installed on your
 1. Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/git-remote-branch-cleaner.git
+git clone https://github.com/gustavolopesv3/delete-branch-stale.git
 ```
 Navigate to the project directory:
 
