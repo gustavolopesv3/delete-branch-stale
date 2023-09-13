@@ -22,10 +22,10 @@ function listRemoteBranches() {
 }
 
 function checkStaleRemoteBranches(branches) {
-    console.log('processing branches, total:', branches)
   let total = 0;
 
   for (const branch of branches) {
+    console.log(`processing ${total} of ${branches.length}`)
     const lastCommitDate = new Date(
       execSync(
         `git --git-dir=${resolve(
@@ -52,8 +52,7 @@ function checkStaleRemoteBranches(branches) {
         console.log(`There is an open PR for the remote branch "${branchName}".`);
         return;
       } else {
-        console.log(`There is no open PR for the remote branch "${branchName}".`);
-        // deleteRemoteBranch(branchName);
+        deleteRemoteBranch(branchName);
         total++;
       }
     }
@@ -97,7 +96,7 @@ function deleteRemoteBranch(branchName) {
   try {
     execSync(
       `git --git-dir=${resolve(
-        repoPath,
+        REPO_PATH,
         ".git"
       )} push origin --delete ${branchName}`
     );
@@ -110,6 +109,6 @@ function deleteRemoteBranch(branchName) {
   }
 }
 
-const remoteBranches = listRemoteBranches(repoPath);
+const remoteBranches = listRemoteBranches();
 
 checkStaleRemoteBranches(remoteBranches);
