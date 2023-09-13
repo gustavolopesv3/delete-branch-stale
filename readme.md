@@ -1,52 +1,50 @@
 # Git Remote Branch Cleaner
 
-A Node.js script to identify and optionally delete stale remote branches that haven't been updated in a specified number of days. It also checks if there are open Pull Requests (PRs) associated with each branch before deletion.
+Um script Node.js para identificar e, opcionalmente, excluir branches remotas que não foram atualizadas em um período específico de dias. O script também verifica se existem Pull Requests (PRs) abertas associadas a cada branch antes de excluí-las.
 
-## Table of Contents
+## Índice
 
 - [Git Remote Branch Cleaner](#git-remote-branch-cleaner)
-  - [Table of Contents](#table-of-contents)
-  - [Prerequisites](#prerequisites)
-  - [Getting Started](#getting-started)
-- [Configuration](#configuration)
+  - [Índice](#índice)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Primeiros Passos](#primeiros-passos)
+- [Configuração](#configuração)
+- [Uso](#uso)
 
-## Prerequisites
+## Pré-requisitos
 
-Before you can use this script, you need to have the following installed on your system:
+Antes de usar este script, você precisa ter o seguinte instalado em seu sistema:
 
-- [Node.js](https://nodejs.org/) (v14 or later)
+- [Node.js](https://nodejs.org/) (versão 14 ou posterior)
 - [Git](https://git-scm.com/)
 
-## Getting Started
+## Primeiros Passos
 
-1. Clone this repository to your local machine:
+1. Clone este repositório para a sua máquina local:
 
 ```bash
-git clone https://github.com/gustavolopesv3/delete-branch-stale.git
+git clone https://github.com/seu-nome-de-usuario/git-remote-branch-cleaner.git
 ```
-Navigate to the project directory:
 
+Navegue até o diretório do projeto:
 ```bash
 cd git-remote-branch-cleaner
 ```
-Install the required dependencies:
+
+Instale as dependências necessárias:
 ```bash
 npm install
 ```
-Usage
-To run the script, use the following command:
+# Configuração
+Você pode personalizar o comportamento do script modificando o arquivo index.js. Aqui estão algumas das configurações que você pode ajustar:
 
+- DAYS_AGO: Configure o número de dias atrás para buscar branches (o padrão é 90 dias).
+- REPO_PATH: Configure o caminho para o seu repositório Git.
+
+# Uso
+Para executar o script, utilize o seguinte comando:
 ```bash
 node index.js
 ```
-The script will list all the remote branches in your Git repository and check for branches that haven't been updated in a specified number of days (default is 1200 days). It will also check if there are open PRs associated with each branch.
 
-For branches that meet the criteria, the script will prompt you to confirm if you want to delete them. You can enter "yes" to delete or "no" to skip deletion.
-
-# Configuration
-You can customize the behavior of the script by modifying the index.js file. Here are some of the configurations you can adjust:
-
-- repoPath: Set the path to your Git repository.
-- staleDays: Set the number of days a branch should be considered stale (default is 1200 days).
-- githubToken: Set your GitHub token if you want to check for open PRs on a GitHub repository.
-- repoOwner and repoName: Set the owner and name of your GitHub repository.
+O script irá listar todas as branches remotas no seu repositório Git e verificará se há branches que não foram atualizadas em um período específico de dias (o padrão é 1200 dias). Ele também verificará se há PRs abertas associadas a cada branch.
