@@ -1,6 +1,6 @@
 # Git Remote Branch Cleaner
 
-Um script Node.js para identificar e, opcionalmente, excluir branches remotas que não foram atualizadas em um período específico de dias. O script também verifica se existem Pull Requests (PRs) abertas associadas a cada branch antes de excluí-las.
+Um script Node.js para identificar e excluir branches remotas que não foram atualizadas em um período específico de dias. O script também verifica se existem Pull Requests (PRs) abertas associadas a cada branch antes de excluí-las.
 
 ## Índice
 
