@@ -3,8 +3,9 @@ const { execSync } = require("child_process");
 const { resolve } = require("path");
 const { forEach, size } = require("lodash");
 
-const REPO_PATH = "../api";
+const REPO_PATH = "../remover/api";
 const DAYS_AGO = 90;
+
 
 async function listRemoteBranches() {
   try {
@@ -38,7 +39,7 @@ async function checkStaleRemoteBranches() {
 
     if (getDays(lastCommitDate) > DAYS_AGO) {
       console.log(branch)
-      const branchName = branch.name
+      const branchName = extracNameBranch(branch.name)
       console.log(
         `The remote branch "${branchName}" has been inactive for ${getDays(
           lastCommitDate
@@ -96,6 +97,17 @@ async function checkStaleRemoteBranches() {
   // }
 
   console.log(`Total remote branches without activity or without an open PR: ${total}`);
+}
+
+function extracNameBranch(branchString) {
+  const prefixo = 'remotes/origin/';
+  const inicio = branchString.indexOf(prefixo);
+  
+  if (inicio !== -1) {
+    return branchString.slice(inicio + prefixo.length);
+  } else {
+    return null; // Não foi encontrado o prefixo
+  }
 }
 
 function getDays(startDate) {
